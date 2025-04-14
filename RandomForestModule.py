@@ -1,3 +1,4 @@
+from turtle import title
 import pandas as pd
 import sklearn
 import sklearn.ensemble
@@ -22,8 +23,8 @@ Y1 = Data.iloc[:, -1].values
 X2 = Data53Samples.iloc[:,:-1].values
 Y2 = Data53Samples.iloc[:, -1].values
 
-print(Y2)
-print(X2)
+#print(Y2)
+#print(X2)
 #--------------------building training models----------------------------------------
 
 X1_train, X1_test, Y1_train, Y1_test = sklearn.model_selection.train_test_split(X1, Y1, test_size=0.2, random_state=42)
@@ -51,7 +52,9 @@ fig, axes = plt.subplots(nrows=1, ncols=2, figsize=(12, 6))
 display_matrix1 = sklearn.metrics.ConfusionMatrixDisplay(confusion_matrix = conf_matrix1)
 display_matrix2 = sklearn.metrics.ConfusionMatrixDisplay(confusion_matrix = conf_matrix2)
 display_matrix1.plot(ax=axes[0])
+axes[0].set_title('Full Data classification')
 display_matrix2.plot(ax=axes[1])
+axes[1].set_title('53 Samples classification')
 plt.tight_layout()
 plt.show()
 

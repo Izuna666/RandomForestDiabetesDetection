@@ -22,6 +22,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="DataBaseManipulation.py" />
+    <Compile Include="DataEvaluation.py" />
     <Compile Include="DataVisualization.py" />
     <Compile Include="RandomForestDiabetesDetection.py" />
     <Compile Include="RandomForestModule.py" />
