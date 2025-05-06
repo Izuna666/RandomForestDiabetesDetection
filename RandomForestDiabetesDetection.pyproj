@@ -21,6 +21,7 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Adding_Noise.py" />
     <Compile Include="DataBaseManipulation.py" />
     <Compile Include="DataEvaluation.py" />
     <Compile Include="DataVisualization.py" />
