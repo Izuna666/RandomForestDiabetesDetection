@@ -1,8 +1,4 @@
-from tkinter import Y
-from turtle import title
-from numpy import average
 import pandas as pd
-import sklearn
 import sklearn.ensemble
 import sklearn.metrics
 import sklearn.model_selection
