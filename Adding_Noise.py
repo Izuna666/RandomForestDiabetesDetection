@@ -27,12 +27,10 @@ noise = np.random.normal(loc=0.0,scale=sigma.values,size=(data.shape[0],len(used
 #print(noise)
 #--------------------applying the noise and making a new noisy dataset-----------------------------------------
 noisy_data = data.copy()
-noisy_data[used_columns] +=noise
+noisy_data[used_columns] +=(noise*0.2)                                                          #making noise smaller
 
 print(noisy_data.head())
-#------------creating new dataset with noise-------------------------
-
-#noisy_data.to_csv("Noisy_Iraq_dataset.csv", index = False)
+noisy_data.to_csv("Noisy_Iraq_dataset.csv", index = False)                                     #making new dataset
 
 # Create a figure with two subplots (1 row, 2 columns)
 fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 5))
