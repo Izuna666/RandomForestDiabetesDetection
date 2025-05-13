@@ -1,6 +1,14 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+'''
+sparwdzic dla innych szumow (mniejszych) mniej drastyczny szum
+rozne ilosci drzew 10, 25,50,75,100 itp i zrobic graf z tego zeby znalzc optymalna ilosc
+monitorowac czas wykonania
+robic rozne eksperymenty zmieniajac parametry i szukac optymalnosci
+tabelaa ze zmienionymi parametrami 2: zaszumione dane i nie zaszumione dane
+default to bedzie nasz model ze srodkowymi parametrami czyli np, jakz mieniamy parametry od 0-100 to nasz default mialby wszystkie na 50 :)
+'''
 
 #------------------------------------using our prepared data-------------------------------------------------
 data = pd.read_csv("Ready_Iraq_dataset.csv")
@@ -22,7 +30,9 @@ noisy_data = data.copy()
 noisy_data[used_columns] +=noise
 
 print(noisy_data.head())
+#------------creating new dataset with noise-------------------------
 
+#noisy_data.to_csv("Noisy_Iraq_dataset.csv", index = False)
 
 # Create a figure with two subplots (1 row, 2 columns)
 fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 5))

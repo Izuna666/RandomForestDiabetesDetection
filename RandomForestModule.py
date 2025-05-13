@@ -4,7 +4,9 @@ import sklearn.metrics
 import sklearn.model_selection
 import matplotlib.pyplot as plt
 
-Data = pd.read_csv("Ready_Iraq_dataset.csv")
+#Data = pd.read_csv("Ready_Iraq_dataset.csv")
+Data = pd.read_csv("Noisy_Iraq_dataset.csv")
+
 #-----------------------------extracting 53 samples---------------------------------
 Data0 = Data[Data['CLASS'] == 0].sample(n=53,random_state=42, ignore_index=False)
 Data1 = Data[Data['CLASS'] == 1].sample(n=53,random_state=42, ignore_index=False)
