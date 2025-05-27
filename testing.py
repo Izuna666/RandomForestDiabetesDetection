@@ -1,3 +1,6 @@
+#this is oly for testing and displaying our steps and milestones for a report
+#it doesn't do anything new just for displaying things :)
+
 import pandas as pd
 
 

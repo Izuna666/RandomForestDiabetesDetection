@@ -7,12 +7,6 @@ import matplotlib.pyplot as plt
 Notes: 1.is age choosen equaly or is this data fluxed? since we are radomizing data we can have uneven gender!
        not sure if it's important.
        2. should we do it on equal data samples? or class doesnt matter?
-       to do: -czu³oœæ i precyzja nasz model
-              -ocena modelu: zmiany parametrów
-              -zaszumic dane zeby model byl gorszy, na poziomie odchylenia standardowego
-              -zmieniac parametry naszego modelu zeby zobacvvzyc trendy wiecej drzew =? brak trendu = nie zwiekszamy bardziej
-              -10 razy losowanie zrobic dla 53sample i policzyc statystycznie metryki (czulosc i precyzja) i to nam powie czy model ma podobne wyniki
-              -tak naprwade szukamy optymalnej struktury modelu i badamy jak to dziala poki bedzie supi nawet przy szumach
 '''
 #--------------------------------------------getting the data ready----------------------------------------------
 Data = pd.read_csv("Ready_Iraq_dataset.csv")

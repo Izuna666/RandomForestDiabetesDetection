@@ -24,9 +24,12 @@
     <Compile Include="Adding_Noise.py" />
     <Compile Include="DataBaseManipulation.py" />
     <Compile Include="DataEvaluation.py" />
+    <Compile Include="DataProcessing_module.py" />
     <Compile Include="DataVisualization.py" />
+    <Compile Include="PCA_module.py" />
     <Compile Include="RandomForestDiabetesDetection.py" />
     <Compile Include="RandomForestModule.py" />
+    <Compile Include="RandomForest_module.py" />
     <Compile Include="testing.py" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />

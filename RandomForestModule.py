@@ -1,3 +1,7 @@
+'''
+this script is OBSOLETE for newer version of this project. Is only here for comparison and
+archival purposes.
+'''
 import pandas as pd
 import sklearn.ensemble
 import sklearn.metrics
@@ -98,8 +102,7 @@ for i, metric in enumerate(metrics):
         for model in models:
             subset = final_df[
                 (final_df["label"] == cls) &
-                (final_df["model"] == model)
-            ]
+                (final_df["model"] == model)]
             ax.plot(subset["trees"], subset[metric], marker='o',
             label=f"{model} - Class {cls}",
             linewidth=2.5, alpha=0.8)
