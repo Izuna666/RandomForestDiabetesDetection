@@ -1,19 +1,33 @@
 import time
+from timeit import Timer
 import matplotlib.pyplot as plt
 import pandas as pd
+import sklearn.metrics
 from DataProcessing_module import (
     load_dataset,
     get_balanced_subset,
     extract_features_and_labels,
     split_data
 )
-from RandomForest_module import train_random_forest, evaluate_model
+from RandomForest_module import (
+    train_random_forest,
+    evaluate_model,
+    plot_param_sweep,
+    evaluate_param_sweep,
+    plot_confusion_matrices
+)
 
 # --- Config
 dataset_path = "Noisy_Iraq_dataset.csv"
+#dataset_path = "Ready_Iraq_dataset.csv"
+#dataset_path = "dataset_pca_cutoff.csv"
+
 labels = [0, 1, 2]
-model_feature = [1, 2, 3, 4, 5]
-combined_all = []
+param_grid = [
+    ("max_features", [None, "sqrt", "log2", 0.5]),
+    ("n_estimators", [10, 20, 40, 60, 80, 100]),
+    ("max_depth",    [5, 10, 15, None])
+]
 
 # --- Preprocessing
 full_data = load_dataset(dataset_path)
@@ -22,56 +36,66 @@ subset_data = get_balanced_subset(full_data)
 X1, Y1 = extract_features_and_labels(full_data)
 X2, Y2 = extract_features_and_labels(subset_data)
 
-X1_train, X1_test, Y1_train, Y1_test = split_data(X1, Y1)
+#X1_train, X1_test, Y1_train, Y1_test = split_data(X1, Y1)
 X2_train, X2_test, Y2_train, Y2_test = split_data(X2, Y2)
+start = time.time()
 
-# --- Training and Evaluation Loop
-for feature in model_feature:
-    start_time = time.time()
+# --- Train model with chosen parameters
+clf = train_random_forest(
+    X2_train, Y2_train,
+    n_estimators=40,
+    max_depth=10,
+    max_features= 0.6
+)
+end = time.time()
+# --- Evaluate model
+Y_pred = clf.predict(X2_test)
+df_metrics, accuracy = evaluate_model(Y2_test, Y_pred, labels)
 
-    clf1 = train_random_forest(X1_train, Y1_train, max_features=feature)
-    clf2 = train_random_forest(X2_train, Y2_train, max_features=feature)
+print("Evaluation metrics:")
+print(df_metrics)
+print(f"Accuracy: {accuracy * 100:.2f}%")
+print(f"time={end-start:.2f}s")
 
-    Y1_pred = clf1.predict(X1_test)
-    Y2_pred = clf2.predict(X2_test)
-
-    df1, acc1 = evaluate_model(Y1_test, Y1_pred, labels)
-    df2, acc2 = evaluate_model(Y2_test, Y2_pred, labels)
-
-    print(f"Model with {feature} features (Full data): {acc1 * 100:.2f}%")
-    print(f"Model with {feature} features (53 samples): {acc2 * 100:.2f}%")
-    print(f"Time: {time.time() - start_time:.2f} seconds\n")
-
-    combined = pd.concat([df1, df2], ignore_index=True)
-    combined_all.append(combined)
-
-# --- Aggregate Results
-final_df = pd.concat(combined_all, ignore_index=True)
-models = ["All samples", "53 samples"]
-metrics = ["specificity", "recall", "precision", "f_score"]
-
-final_df["model"] = [models[i // 3 % 2] for i in range(len(final_df))]
-final_df["trees"] = [tree for tree in model_feature for _ in range(6)]
-
-# --- Plotting
-fig, axes = plt.subplots(2, 2, figsize=(14, 10))
-axes = axes.flatten()
-
-for i, metric in enumerate(metrics):
-    ax = axes[i]
-    for cls in labels:
-        for model in models:
-            subset = final_df[(final_df["label"] == cls) & (final_df["model"] == model)]
-            ax.plot(subset["trees"], subset[metric], marker='o',
-                    label=f"{model} - Class {cls}",
-                    linewidth=2.5, alpha=0.8)
-    ax.set_title(f"{metric.capitalize()}")
-    ax.set_xlabel("ilosc cech")
-    ax.set_ylabel("wartosc")
-    ax.set_xticks(model_feature)
-    ax.grid(True, axis='x')
-    ax.legend()
-
-plt.suptitle("Model Performance vs. Number of Features", fontsize=16)
-plt.tight_layout(rect=[0, 0, 1, 0.96])
+# --- Plot confusion matrix
+conf_matrix = sklearn.metrics.confusion_matrix(Y2_test, Y_pred)
+display_matrix = sklearn.metrics.ConfusionMatrixDisplay(confusion_matrix=conf_matrix)
+display_matrix.plot()
+plt.title("Confusion Matrix - Default Model")
+plt.tight_layout()
 plt.show()
+
+
+
+
+## --- Baseline confusion matrices (default params)
+#clf1 = train_random_forest(X1_train, Y1_train)
+#clf2 = train_random_forest(X2_train, Y2_train)
+#Y1_pred = clf1.predict(X1_test)
+#Y2_pred = clf2.predict(X2_test)
+#plot_confusion_matrices(
+#    Y1_test, Y1_pred,
+#    Y2_test, Y2_pred,
+#    titles=(
+#        'Full Data (default params)',
+#        'Subset Data (default params)'
+#    )
+#)
+#
+#for name, values in param_grid:
+#
+#    df = evaluate_param_sweep(
+#        X1_train, Y1_train, X1_test, Y1_test,
+#        X2_train, Y2_train, X2_test, Y2_test,
+#        param_name  = name,
+#        param_values= values,
+#        train_fn    = train_random_forest,
+#        eval_fn     = evaluate_model,
+#        labels      = labels
+#
+#    )
+#
+#    print("------------next training-------------")
+#    plot_param_sweep(df, name, values, labels)
+
+

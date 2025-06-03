@@ -29,7 +29,7 @@ print(f"Keeping {n_keep} principal components (>= {cutoff*100:.0f}% variance eac
 pca_columns = [f'PC{i+1}' for i, keep in enumerate(mask) if keep]
 X_pca_reduced = X_pca_full[:, mask]
 df_pca = pd.DataFrame(X_pca_reduced, columns=pca_columns)
-df_pca['class'] = y.values
+df_pca['CLASS'] = y.values
 
 # Optionally, show how much total variance is retained
 variance_retained = explained_variance[mask].sum()
