@@ -1,5 +1,5 @@
 '''
-rewriting of the old "RandomForestModule.py", making it modular and esier to use
+rewriting of the old "RandomForestModule.py", making it modular and easier to use
 this part focuses on data preprocessing so we can:
 1) load our data
 2) create x sampled data from main data

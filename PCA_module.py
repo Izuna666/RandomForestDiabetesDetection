@@ -31,7 +31,7 @@ X_pca_reduced = X_pca_full[:, mask]
 df_pca = pd.DataFrame(X_pca_reduced, columns=pca_columns)
 df_pca['CLASS'] = y.values
 
-# Optionally, show how much total variance is retained
+# show how much total variance is retained
 variance_retained = explained_variance[mask].sum()
 print(f"Total variance retained with {n_keep} components: {variance_retained:.2%}")
 

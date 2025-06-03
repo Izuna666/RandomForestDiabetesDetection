@@ -3,11 +3,7 @@ from scipy.stats import spearmanr
 from scipy.stats import kruskal
 import seaborn as sns
 import matplotlib.pyplot as plt
-'''
-Notes: 1.is age choosen equaly or is this data fluxed? since we are radomizing data we can have uneven gender!
-       not sure if it's important.
-       2. should we do it on equal data samples? or class doesnt matter?
-'''
+
 #--------------------------------------------getting the data ready----------------------------------------------
 Data = pd.read_csv("Ready_Iraq_dataset.csv")
 Data0 = Data[Data['CLASS'] == 0].sample(n=53,random_state=42, ignore_index=False)

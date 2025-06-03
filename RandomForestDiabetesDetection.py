@@ -18,7 +18,7 @@ from RandomForest_module import (
 )
 
 # --- Config
-dataset_path = "Noisy_Iraq_dataset.csv"
+dataset_path = "Noisy_Iraq_dataset.csv"                     #unncoment to choose diferent dataset
 #dataset_path = "Ready_Iraq_dataset.csv"
 #dataset_path = "dataset_pca_cutoff.csv"
 
@@ -36,7 +36,7 @@ subset_data = get_balanced_subset(full_data)
 X1, Y1 = extract_features_and_labels(full_data)
 X2, Y2 = extract_features_and_labels(subset_data)
 
-#X1_train, X1_test, Y1_train, Y1_test = split_data(X1, Y1)
+#X1_train, X1_test, Y1_train, Y1_test = split_data(X1, Y1)          #uncomment to have both models run
 X2_train, X2_test, Y2_train, Y2_test = split_data(X2, Y2)
 start = time.time()
 
@@ -67,21 +67,8 @@ plt.show()
 
 
 
+#------------param sweep-----------------
 
-## --- Baseline confusion matrices (default params)
-#clf1 = train_random_forest(X1_train, Y1_train)
-#clf2 = train_random_forest(X2_train, Y2_train)
-#Y1_pred = clf1.predict(X1_test)
-#Y2_pred = clf2.predict(X2_test)
-#plot_confusion_matrices(
-#    Y1_test, Y1_pred,
-#    Y2_test, Y2_pred,
-#    titles=(
-#        'Full Data (default params)',
-#        'Subset Data (default params)'
-#    )
-#)
-#
 #for name, values in param_grid:
 #
 #    df = evaluate_param_sweep(

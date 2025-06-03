@@ -1,5 +1,5 @@
 '''
-this script is OBSOLETE for newer version of this project. Is only here for comparison and
+this script is OBSOLETE for newer versions of this project. Is only here for comparison and
 archival purposes.
 '''
 import pandas as pd

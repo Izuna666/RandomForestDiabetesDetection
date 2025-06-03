@@ -1,8 +1,11 @@
 '''
 rewriting of the old "RandomForestModule.py", making it modular and esier to use.
-This part focuses on model creation:
+This part focuses on model creation and modification as we as veryfication:
 1) creats RF modul using sklearn
 2) evaluates our model on 6 difrenet parameters
+3) trains and evaluates Random Forest models over a sweep of one hyperparameter.
+4) Plots metrics over a hyperparameter sweep.
+5) Displays side-by-side confusion matrices for two sets of true/predicted labels.
 '''
 
 import pandas as pd
